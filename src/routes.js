@@ -10,4 +10,5 @@ router.post('/',controller.addPrizoner)
 router.delete('/:id',controller.deletePrizoner)
 router.put('/:id',controller.updatePrizoner)
 router.get('/profile/:token',controller.createAccount)
+router.get('/nodemail/',controller.sendEmail)
 module.exports = router

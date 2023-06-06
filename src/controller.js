@@ -8,8 +8,39 @@ app.set('view engine', 'ejs');
 app.set('views', __dirname + '/views');
 //крч квери  файл  просто укорачивает запись то есть не нужно не посредственно здесь делать запрос, а можно прописать его
 //взятие данных
+const nodemailer = require('nodemailer');
+
+// Настройка транспорта для отправки писем
+const transporter = nodemailer.createTransport({
+    service: 'gmail.com',//also tried host:'smtp.gmail.com'
+    secure: true, 
+    secureConnection: false,
+    port: 143,//also tried 25 and 465
+    auth: {
+      user: 'belyhroman460@gmail.com',
+      pass: 'a1234dfc'
+    }
+  });
+// Обработчик маршрута для отправки письма
+  const mailOptions = {
+    from: 'belyhroman460@gmail.com',
+    to: 'viktorbelyh56@gmail.com',
+    subject: 'Hows life?',
+    text: 'Text of text '
+  };
+
+  // Отправка письма
 let time = new Date()
 const getPrizoners = (req,res)=>{
+    /*transporter.sendMail(mailOptions, (error, info) => {
+        if (error) {
+          console.log(error);
+          res.send('Error sending email');
+        } else {
+          console.log('Email sent: ' + info.response);
+          res.send('Email sent successfully');
+        }
+      });*/
     pool.query(queries.getPrizoners, (err, result) => {
       if(err) throw console.error("err");
       res.status(200).json(result.rows)
@@ -95,7 +126,17 @@ const addPrizoner  = (req,res)=>{
              //логика кода работает завтра нужно разобрастся поглубже в бекенде и начать фронтенд
              // скорее всего завтра и послезавтра не смогу , крч продолжу в среду (наверное)
        }
- 
+       const sendEmail = () =>{
+        transporter.sendMail(mailOptions, (error, info) => {
+            if (error) {
+              console.log(error);
+              res.send('Error sending email');
+            } else {
+              console.log('Email sent: ' + info.response);
+              res.send('Email sent successfully');
+            }
+          });
+    }
  //экспорты подробнее в кверисах
 module.exports={
     getPrizoners,
@@ -103,5 +144,6 @@ module.exports={
     addPrizoner,
     deletePrizoner,
     updatePrizoner,
-    createAccount
+    createAccount,
+    sendEmail
 }
