@@ -1,0 +1,57 @@
+@import url('https://fonts.googleapis.com/css2?family=Marcellus&family=Playfair+Display+SC:ital@0;1&display=swap');
+body{
+background-color:rgb(100, 187, 237) ;
+}
+.addpr{
+    font-family: cursive;
+    color: aliceblue;
+    font-weight: 500;
+}
+.id{
+width: 60px;
+height: 20px;
+border-radius: 3%;
+border-color: aliceblue;
+}
+.name{
+    width: 90px;
+    height: 20px;
+    border-radius: 3%;
+    border-color: aliceblue;
+}
+.number{
+    width: 100px;
+    height: 20px;
+    border-radius: 3%;
+    border-color: aliceblue;
+}
+.submit{
+    width: 100px;
+    height: 30px;
+    border-radius: 3%;
+    border-color: aliceblue;
+    font-family: cursive;
+    color:rgb(100, 187, 237);
+}
+#otherfun{
+    margin-top: 10%;
+}
+.idf{
+    font-family: cursive;
+    color: aliceblue;
+    font-weight: 500;
+}
+#input-id{
+    width: 90px;
+    height: 20px;
+    border-radius: 3%;
+    border-color: aliceblue;
+}
+.finds{
+    width: 100px;
+    height: 30px;
+    border-radius: 3%;
+    border-color: aliceblue;
+    font-family: cursive;
+    color:rgb(100, 187, 237);
+}

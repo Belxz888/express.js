@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Express connect</title>
+</head>
+<body>
+    <a class="addpr">Добавить заключеннного(POST)</a>
+    <form name="person" id="postform" >
+        <input name="id" id="id" placeholder="Айди">
+        <input name="name" id="name" placeholder="Имя" >
+        <input name="number" id="surname" placeholder="Фамилия">
+        <input name="number" id="Sud" placeholder="Название судимости">
+        <input name="number" id="danger" placeholder="Степень опасности преступника">
+        <input name="number" id="age" placeholder="Срок">
+        <input name="number" id="regim" placeholder="Режим тюрьмы">
+        <button id="submit" type="submit" >Добавить</button>
+        <a id="answ"></a>
+      </form>
+      <div id="otherfun">
+      <a class="idf">Найти заключеннного по айди(GET)</a>
+      <input id="input-id" type="number" >
+      <div id="message"></div>  
+      <button   id="findbtn">Найти</button>
+      </form>
+      </div>
+      <div id="deleteprisoner">
+        <a class="deletepr">Удалить заключеннного(DELETE)</a>
+        <input id="input-iddelete"  type="number">
+        <button  id="deletebtn">DELETE</button>
+      <div id="messageofdelete"></div>
+      </div>
+   <form>
+    <input type="text" id="names" placeholder="Имя">
+    <input type="text" id="ids" placeholder="Айди">
+    <button id="enter">Войти </button>
+   </form>
+    <script src="index.js"></script>
+</body>
+</html>
