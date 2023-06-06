@@ -106,7 +106,7 @@ buttonenter.addEventListener("click",()=>{
   .then(response => response.json())
   .then(data =>  {const token = data[0].token
     alert(token)
-window.location.href =` http://localhost:3000/api/prizoners/profile/${token}`
+//window.location.href =` http://localhost:3000/api/prizoners/profile/${token}`
   }
   )
   .catch(error => alert(`Не найдено заключенных с таким айди`));
