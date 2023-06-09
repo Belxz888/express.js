@@ -31,7 +31,6 @@ alert("post")
       degreedanger:danger,
       prisonterm:age,
       hardness:regim
-
   })
 }).then(data => {
   console.log(data);
@@ -100,15 +99,13 @@ fetch(`http://localhost:3000/api/prizoners/${deletevalue}`, {
 const buttonenter = document.getElementById("enter")
 
 buttonenter.addEventListener("click",()=>{
-  const name  = document.getElementById("names").value
   const id = document.getElementById("ids").value
   fetch(`http://localhost:3000/api/prizoners/${id}`)
   .then(response => response.json())
-  .then(data =>  {const token = data[0].token
-    alert(token)
+  .then(data =>  
+    window.location.replace(`http://localhost:3000/api/prizoners/profile/${data[0].token}`)
 //window.location.href =` http://localhost:3000/api/prizoners/profile/${token}`
-  }
   )
-  .catch(error => alert(`Не найдено заключенных с таким айди`));
+  .catch(error => console.error(""));
 })
    

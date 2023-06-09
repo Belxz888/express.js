@@ -47,7 +47,7 @@ const getPrizoners = (req,res)=>{
       console.log(`Выполнен показ данных о всех зеках (Get); ${time}`)
 })
 }
-//взятие данных
+//взятие данных по айди зека
 const idPrizoner = (req,res)=>{
  const id  = parseInt(req.params.id) 
  pool.query(queries.firstPrizoner,[id],(err, result) => {
@@ -57,6 +57,26 @@ const idPrizoner = (req,res)=>{
  }
  )
 }
+const createAccount  = (req,res)=>{
+  const token = req.params.token;
+  //const {name,surname,condemnation,degreedanger,prisonterm} = req.body
+      const decoded = jwt.verify(token, 'super');
+      const nale = decoded.name;
+  
+      // Получение данных пользователя из базы данн
+      pool.query(queries.getToken,[token],(err, result) => {
+          if(err) throw console.error("err");
+         // res.status(200).json(result.rows)
+         //рендер в индекс.иджс (index.ejs)
+         //типо динамичная страница
+          res.render('index', { name: result.rows[0].name,surname:result.rows[0].surname });
+          console.log(`Выполнен показ данных о конкретном  зеке с tokenom ${token} (Get); ${time}`)
+       }
+       )
+       //логика кода работает завтра нужно разобрастся поглубже в бекенде и начать фронтенд
+       // скорее всего завтра и послезавтра не смогу , крч продолжу в среду (наверное)
+ }
+ //добавление 
 const addPrizoner  = (req,res)=>{
     const {id,name,surname,condemnation,degreedanger,prisonterm,hardness} = req.body;
     //дистрактуризация
@@ -69,16 +89,18 @@ const addPrizoner  = (req,res)=>{
     })*/
     //add to db
     //token password here and obj props and expireness
-    const token = jwt.sign({ id: id,name:name }, 'super', { expiresIn: '1w' });
+    //инфа о токене
+    const token = jwt.sign({ id: id,name:name }, 'super', { expiresIn: '1y' });
     pool.query(queries.addPrizoner,[id,name,surname,condemnation,degreedanger,prisonterm,hardness,token],(err, result) => {
         if(err){ console.error("Нет таких зеков(err)")
 // Добавление токена в заголовок ответа
 // ошибка в том что типо рес.сенд отправляется 2 раза нужно помещать все в один запрос все что хочешь
-        console.log(`Ошибка нет таких заключенных (post); ${time}`)};
+console.log(`Ошибка нет таких заключенных (post); ${time}`)};
        res.status(201).send(`Зек идентифицирован и создан  Токен:${token}`)
        console.log(`Создан 1 новый зек c id: ${id} (POST); ${time}`)
      });
      }
+     //удаление зека тоже по айди
     const deletePrizoner = (req,res) =>{
         const id  = parseInt(req.params.id) 
        pool.query(queries.firstPrizoner,[id],(err, result) => {
@@ -94,6 +116,7 @@ const addPrizoner  = (req,res)=>{
 
         }
        )}
+       //обновление зека по айди
        const updatePrizoner = (req,res) =>{
         const id  = parseInt(req.params.id)
         const {name,surname,condemnation,degreedanger,prisonterm} = req.body
@@ -109,23 +132,7 @@ const addPrizoner  = (req,res)=>{
             })
         })
        }
-       const createAccount  = (req,res)=>{
-        const token = req.params.token;
-        const {name,surname,condemnation,degreedanger,prisonterm} = req.body
-            const decoded = jwt.verify(token, 'super');
-            const nale = decoded.name;
-        
-            // Получение данных пользователя из базы данн
-            pool.query(queries.getToken,[token],(err, result) => {
-                if(err) throw console.error("err");
-               // res.status(200).json(result.rows)
-                res.render('index', { name: result.rows[0].name,surname:result.rows[0].surname });
-                console.log(`Выполнен показ данных о конкретном  зеке с tokenom ${token} (Get); ${time}`)
-             }
-             )
-             //логика кода работает завтра нужно разобрастся поглубже в бекенде и начать фронтенд
-             // скорее всего завтра и послезавтра не смогу , крч продолжу в среду (наверное)
-       }
+       /*
        const sendEmail = () =>{
         transporter.sendMail(mailOptions, (error, info) => {
             if (error) {
@@ -136,7 +143,9 @@ const addPrizoner  = (req,res)=>{
               res.send('Email sent successfully');
             }
           });
-    }
+    }*/
+    //все работает 
+
  //экспорты подробнее в кверисах
 module.exports={
     getPrizoners,
@@ -145,5 +154,5 @@ module.exports={
     deletePrizoner,
     updatePrizoner,
     createAccount,
-    sendEmail
+    //sendEmail
 }
